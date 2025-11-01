@@ -97,6 +97,12 @@ class MathGame {
         this.startTimer();
         this.animate();
         
+        // Focus on input and keep keyboard open
+        setTimeout(() => {
+            this.answerInput.value = '';
+            this.answerInput.focus();
+        }, 100);
+        
         // Show Telegram back button
         if (this.telegram) {
             this.telegram.showBackButton();
@@ -153,8 +159,6 @@ class MathGame {
         
         this.currentQuestion = { answer, questionText };
         this.questionEl.textContent = questionText;
-        this.answerInput.value = '';
-        this.answerInput.focus();
     }
     
     checkAnswer() {
@@ -192,7 +196,14 @@ class MathGame {
             this.telegram.hapticFeedback('notification', 'success');
         }
         
-        setTimeout(() => this.generateQuestion(), 800);
+        // Clear input and keep focus
+        this.answerInput.value = '';
+        
+        setTimeout(() => {
+            this.generateQuestion();
+            // Ensure focus stays on input
+            this.answerInput.focus();
+        }, 800);
     }
     
     wrongAnswer() {
@@ -210,7 +221,14 @@ class MathGame {
         if (this.lives <= 0) {
             this.endGame();
         } else {
-            setTimeout(() => this.generateQuestion(), 800);
+            // Clear input and keep focus
+            this.answerInput.value = '';
+            
+            setTimeout(() => {
+                this.generateQuestion();
+                // Ensure focus stays on input
+                this.answerInput.focus();
+            }, 800);
         }
     }
     
