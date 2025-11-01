@@ -162,9 +162,11 @@ button[data-level].selected, button[data-op].selected {
     color: white;
     padding: 20px;
     display: flex;
-    justify-content: space-around;
+    flex-direction: column;
+    gap: 10px;
     font-size: 1.3em;
     font-weight: bold;
+    text-align: center;
 }
 
 #gameCanvas {
