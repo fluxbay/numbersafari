@@ -12,11 +12,23 @@ class MathGame {
         this.timer = null;
         this.particles = [];
         this.stars = [];
+        this.telegram = window.telegramApp;
         
         this.initElements();
         this.initCanvas();
         this.setupEventListeners();
         this.createStars();
+        this.initTelegramFeatures();
+    }
+    
+    initTelegramFeatures() {
+        // Get user info from Telegram if available
+        if (this.telegram && this.telegram.tg) {
+            const userInfo = this.telegram.getUserInfo();
+            if (userInfo && userInfo.firstName) {
+                console.log(`Welcome ${userInfo.firstName}!`);
+            }
+        }
     }
     
     initElements() {
@@ -84,6 +96,11 @@ class MathGame {
         this.generateQuestion();
         this.startTimer();
         this.animate();
+        
+        // Show Telegram back button
+        if (this.telegram) {
+            this.telegram.showBackButton();
+        }
     }
     
     startTimer() {
@@ -170,6 +187,11 @@ class MathGame {
         this.createParticles(true);
         this.playCorrectAnimation();
         
+        // Telegram haptic feedback
+        if (this.telegram) {
+            this.telegram.hapticFeedback('notification', 'success');
+        }
+        
         setTimeout(() => this.generateQuestion(), 800);
     }
     
@@ -179,6 +201,11 @@ class MathGame {
         this.updateDisplay();
         this.createParticles(false);
         this.shakeInput();
+        
+        // Telegram haptic feedback
+        if (this.telegram) {
+            this.telegram.hapticFeedback('notification', 'error');
+        }
         
         if (this.lives <= 0) {
             this.endGame();
