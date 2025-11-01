@@ -158,16 +158,32 @@ button[data-level].selected, button[data-op].selected {
     50% { transform: scale(1.05); }
 }
 
-.score-container {
+/* Game header - fixed at top */
+.game-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.score-container {
     color: white;
-    padding: 20px;
+    padding: 12px 20px;
     display: flex;
-    flex-direction: column;
-    gap: 10px;
-    font-size: 1.3em;
+    flex-direction: row;
+    justify-content: space-around;
+    gap: 15px;
+    font-size: 1.1em;
     font-weight: bold;
     text-align: center;
+}
+
+.game-content {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
 }
 
 #gameCanvas {
@@ -464,13 +480,18 @@ button[data-level].selected, button[data-op].selected {
     }
     
     .score-container {
-        padding: 15px;
-        font-size: 1.1em;
-        gap: 8px;
+        padding: 10px 15px;
+        font-size: 0.95em;
+        gap: 10px;
+        flex-wrap: nowrap;
+    }
+    
+    .score-container span {
+        white-space: nowrap;
     }
     
     #gameCanvas {
-        height: 200px;
+        height: 150px;
     }
     
     .question {
@@ -530,6 +551,17 @@ button[data-level].selected, button[data-op].selected {
     }
     
     .score-container {
-        font-size: 1em;
+        font-size: 0.85em;
+        padding: 8px 10px;
+        gap: 8px;
+    }
+    
+    #gameCanvas {
+        height: 120px;
+    }
+    
+    .question {
+        font-size: 1.5em;
+        margin-bottom: 15px;
     }
 }
