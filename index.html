@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Math Adventure for Kids</title>
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="game-container">
+        <div id="start-screen" class="screen">
+            <h1>Number Safari</h1>
+            <div class="character">
+                <div class="character-face">
+                    <div class="eye left"></div>
+                    <div class="eye right"></div>
+                    <div class="smile"></div>
+                </div>
+            </div>
+            <div class="difficulty">
+                <h2>Choose Your Level</h2>
+                <button data-level="easy">Easy (1-10)</button>
+                <button data-level="medium">Medium (1-50)</button>
+                <button data-level="hard">Hard (1-100)</button>
+            </div>
+            <div class="operation">
+                <h2>Choose Operation</h2>
+                <button data-op="add">+ Addition</button>
+                <button data-op="subtract">- Subtraction</button>
+                <button data-op="multiply">× Multiplication</button>
+                <button data-op="divide">÷ Division</button>
+            </div>
+            <button id="start-btn" class="start-btn">Start Adventure!</button>
+        </div>
+
+        <div id="game-screen" class="screen hidden">
+            <div class="score-container">
+                <span>Score: <span id="score">0</span></span>
+                <span>Lives: <span id="lives">3</span></span>
+                <span>Time: <span id="time">60</span>s</span>
+            </div>
+            <canvas id="gameCanvas"></canvas>
+            <div class="question-container">
+                <div id="question" class="question"></div>
+                <div class="answer-input">
+                    <input type="number" id="answer" placeholder="Your answer..." autofocus>
+                    <button id="submit-answer">Submit</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="game-over" class="screen hidden">
+            <h1>Game Over!</h1>
+            <div class="result">
+                <p>Your Score: <span id="final-score">0</span></p>
+                <p>Correct Answers: <span id="correct-answers">0</span></p>
+                <p>Best Streak: <span id="best-streak">0</span></p>
+            </div>
+            <button id="play-again">Play Again</button>
+        </div>
+    </div>
+    <script src="game.js"></script>
+</body>
+</html>
