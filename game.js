@@ -74,19 +74,28 @@ class MathGame {
         // Submit answer - prevent button from stealing focus
         const submitBtn = document.getElementById('submit-answer');
         
-        // Prevent button from taking focus on mousedown/touchstart
+        // Prevent button from taking focus on mousedown (desktop)
         submitBtn.addEventListener('mousedown', (e) => {
             e.preventDefault();
         });
-        submitBtn.addEventListener('touchstart', (e) => {
-            e.preventDefault();
-        });
         
-        submitBtn.addEventListener('click', (e) => {
+        // Handle touch events for mobile without preventing default
+        submitBtn.addEventListener('touchend', (e) => {
             e.preventDefault();
             this.checkAnswer();
             // Immediately refocus input
-            setTimeout(() => this.answerInput.focus(), 0);
+            setTimeout(() => this.answerInput.focus(), 10);
+        });
+        
+        // Handle click for desktop
+        submitBtn.addEventListener('click', (e) => {
+            // Only handle if not already handled by touchend
+            if (e.detail !== 0) {
+                e.preventDefault();
+                this.checkAnswer();
+                // Immediately refocus input
+                setTimeout(() => this.answerInput.focus(), 10);
+            }
         });
         
         // Enter key to submit
