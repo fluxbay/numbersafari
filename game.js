@@ -128,6 +128,12 @@ class MathGame {
         this.currentStreak = 0;
         this.bestStreak = 0;
         this.updateDisplay();
+        
+        // Initialize canvas after it becomes visible
+        setTimeout(() => {
+            this.initCanvas();
+        }, 0);
+        
         this.generateQuestion();
         this.startTimer();
         this.animate();
