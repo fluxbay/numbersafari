@@ -1,6 +1,6 @@
 Access here: https://moonlit-parfait-d74a31.netlify.app/
 
-# Math Adventure - Kids Learning App
+# Number Safari - Kids Learning App
 
 A fun and interactive mathematics learning game designed for children under 12 years old, featuring smooth animations and engaging gameplay.
 
