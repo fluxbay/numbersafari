@@ -228,6 +228,10 @@ button[data-level].selected, button[data-op].selected {
 #submit-answer {
     padding: 15px 40px;
     font-size: 1.3em;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
 }
 
 .result {

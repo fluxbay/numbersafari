@@ -71,12 +71,38 @@ class MathGame {
         // Start game
         document.getElementById('start-btn').addEventListener('click', () => this.startGame());
         
-        // Submit answer
-        document.getElementById('submit-answer').addEventListener('click', () => this.checkAnswer());
+        // Submit answer - prevent button from stealing focus
+        const submitBtn = document.getElementById('submit-answer');
+        
+        // Prevent button from taking focus on mousedown/touchstart
+        submitBtn.addEventListener('mousedown', (e) => {
+            e.preventDefault();
+        });
+        submitBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+        });
+        
+        submitBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            this.checkAnswer();
+            // Immediately refocus input
+            setTimeout(() => this.answerInput.focus(), 0);
+        });
         
         // Enter key to submit
         this.answerInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') this.checkAnswer();
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                this.checkAnswer();
+            }
+        });
+        
+        // Prevent input from losing focus during game
+        this.answerInput.addEventListener('blur', (e) => {
+            // Only refocus if game is active
+            if (!this.gameScreen.classList.contains('hidden')) {
+                setTimeout(() => this.answerInput.focus(), 0);
+            }
         });
         
         // Play again
