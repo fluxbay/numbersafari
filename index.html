@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <title>Number Safari - Math Learning</title>
     
     <!-- PWA Meta Tags -->
@@ -24,7 +27,7 @@
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     
     <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css?v=1.0.1">
 </head>
 <body>
     <div class="game-container">
@@ -85,8 +88,44 @@
         📱 Add to Home Screen
     </button>
     
-    <script src="telegram-integration.js"></script>
-    <script src="game.js"></script>
+    <!-- Manual Install Instructions -->
+    <div id="install-instructions" class="install-instructions hidden">
+        <div class="install-card">
+            <button class="close-btn" onclick="document.getElementById('install-instructions').classList.add('hidden')">✕</button>
+            <h3>📱 Install Number Safari</h3>
+            <div id="ios-instructions" class="hidden">
+                <p><strong>For iOS (Safari):</strong></p>
+                <ol>
+                    <li>Tap the Share button <span style="font-size: 1.2em;">⎙</span></li>
+                    <li>Scroll down and tap "Add to Home Screen"</li>
+                    <li>Tap "Add"</li>
+                </ol>
+            </div>
+            <div id="android-instructions" class="hidden">
+                <p><strong>For Android (Chrome):</strong></p>
+                <ol>
+                    <li>Tap the menu (⋮)</li>
+                    <li>Tap "Add to Home Screen" or "Install App"</li>
+                    <li>Tap "Install"</li>
+                </ol>
+            </div>
+            <div id="desktop-instructions" class="hidden">
+                <p><strong>For Desktop:</strong></p>
+                <ol>
+                    <li>Look for the install icon (➕) in the address bar</li>
+                    <li>Click it and confirm installation</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Show Install Button -->
+    <button id="show-install-help" class="show-install-btn">
+        ℹ️ How to Install
+    </button>
+    
+    <script src="telegram-integration.js?v=1.0.1"></script>
+    <script src="game.js?v=1.0.1"></script>
     <script>
         // Register Service Worker for PWA
         if ('serviceWorker' in navigator) {
@@ -121,6 +160,33 @@
             console.log('PWA installed');
             installButton.classList.add('hidden');
         });
+        
+        // Show install help button
+        const showInstallHelp = document.getElementById('show-install-help');
+        const installInstructions = document.getElementById('install-instructions');
+        
+        // Detect platform and show appropriate instructions
+        function detectPlatform() {
+            const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+            
+            if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+                document.getElementById('ios-instructions').classList.remove('hidden');
+            } else if (/android/i.test(userAgent)) {
+                document.getElementById('android-instructions').classList.remove('hidden');
+            } else {
+                document.getElementById('desktop-instructions').classList.remove('hidden');
+            }
+        }
+        
+        showInstallHelp.addEventListener('click', () => {
+            detectPlatform();
+            installInstructions.classList.remove('hidden');
+        });
+        
+        // Hide install help button in Telegram
+        if (window.Telegram?.WebApp) {
+            showInstallHelp.style.display = 'none';
+        }
     </script>
 </body>
 </html>
